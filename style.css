@@ -244,21 +244,49 @@ body {
     padding: 0 1rem; /* Add padding for readability */
   }
 
-  .polaroid-container {
-    gap: 1rem; /* Less gap on smaller screens */
-    flex-wrap: nowrap; /* Ensure horizontal scrolling if needed */
-    overflow-x: auto; /* Scroll if there are more polaroids */
-    justify-content: flex-start; /* Align to start, works better with scroll */
-    padding: 1rem 0; /* Add vertical padding */
-    max-width: 100%;
+  .flowers {
+    position: absolute; /* Change to absolute */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    z-index: 0; /* Behind other elements */
+    pointer-events: none; /* Prevent interaction */
   }
 
-  .polaroid {
-    width: 180px; /* Smaller width for phones */
-    padding: 0.8rem;
-    padding-bottom: 2rem;
-    flex-shrink: 0; /* Prevent shrinking when scrolling */
+  .birthday-text,
+  .polaroid-container {
+    position: relative; /* Ensure they are above the flowers */
+    z-index: 1; /* Bring them above the flowers */
   }
+
+/* Existing styles for birthday text and polaroids */
+.birthday-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 2s 6s forwards;
+  padding: 0 1rem;
+}
+
+.polaroid-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 2s 10s forwards;
+}
 
   .polaroid img {
     width: 100%;
