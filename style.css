@@ -31,7 +31,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 1000;
+  z-index: 1000; /* Ensure it's above flowers */
   opacity: 0;
   animation: fadeIn 2s 6s forwards;
   padding: 0 1rem;
@@ -65,7 +65,7 @@ body {
   align-items: center;
   gap: 3rem;
   flex-wrap: wrap; /* Allows wrapping on smaller screens */
-  z-index: 1000;
+  z-index: 1000; /* Ensure it's above flowers */
   opacity: 0;
   animation: fadeIn 2s 10s forwards;
 }
@@ -78,10 +78,6 @@ body {
   transform: rotate(-2deg);
   transition: all 0.4s ease;
   width: 220px; /* Fixed width for consistency */
-}
-
-.polaroid:nth-child(2) {
-  transform: rotate(2deg);
 }
 
 .polaroid:hover {
@@ -104,6 +100,17 @@ body {
   color: var(--text-color);
   letter-spacing: 1px;
   font-weight: 300;
+}
+
+/* Flowers Background */
+.flowers {
+  position: absolute; /* Change to absolute */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  z-index: 0; /* Behind other elements */
+  pointer-events: none; /* Prevent interaction */
 }
 
 /* Gallery Styles */
@@ -138,47 +145,6 @@ body {
 .close-gallery:hover {
   background-color: rgba(255, 0, 0, 0.8);
   color: white;
-}
-
-.gallery-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.gallery-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.gallery-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  width: 90%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.gallery-item {
-  position: relative;
-  aspect-ratio: 1;
-  overflow: hidden;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(20%);
-  transition: all 0.5s ease;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.03);
-  filter: grayscale(0%);
 }
 
 /* Animations */
@@ -216,21 +182,30 @@ body {
     width: 200px;
     padding-bottom: 2rem;
   }
-
-  .gallery-grid {
-    gap: 1rem;
-  }
 }
 
 /* Phones */
 @media (max-width: 480px) {
-  
   body {
     display: flex; /* Ensure alignment works */
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     padding: 30px 10px; /* Extra horizontal padding for smaller screens */
+  }
+
+  .flowers {
+    z-index: 0; /* Ensure flowers are behind */
+  }
+
+  .birthday-text {
+    position: relative; /* Ensure it's above flowers */
+    z-index: 1; /* Bring it above the flowers */
+  }
+
+  .polaroid-container {
+    position: relative; /* Ensure it's above flowers */
+    z-index: 1; /* Bring it above the flowers */
   }
 
   .birthday-text h1 {
@@ -244,75 +219,22 @@ body {
     padding: 0 1rem; /* Add padding for readability */
   }
 
-  .flowers {
-    position: absolute; /* Change to absolute */
-    top: 0; /* Align to the top */
-    left: 0; /* Align to the left */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    z-index: 0; /* Behind other elements */
-    pointer-events: none; /* Prevent interaction */
-  }
-
-  .birthday-text,
   .polaroid-container {
-    position: relative; /* Ensure they are above the flowers */
-    z-index: 1; /* Bring them above the flowers */
+    gap: 1rem; /* Less gap on smaller screens */
+    flex-wrap: nowrap; /* Ensure horizontal scrolling if needed */
+    overflow-x: auto; /* Scroll if there are more polaroids */
+    justify-content: flex-start; /* Align to start, works better with scroll */
+    padding: 1rem 0; /* Add vertical padding */
+    max-width: 100%;
   }
 
-/* Existing styles for birthday text and polaroids */
-.birthday-text {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 1000;
-  opacity: 0;
-  animation: fadeIn 2s 6s forwards;
-  padding: 0 1rem;
+  .polaroid {
+    width: 180px; /* Smaller width for phones */
+    padding: 0.8rem;
+    padding-bottom: 2rem;
+    flex-shrink: 0; /* Prevent shrinking when scrolling */
+  }
 }
-
-.polaroid-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  flex-wrap: wrap; /* Allows wrapping on smaller screens */
-  z-index: 1000;
-  opacity: 0;
-  animation: fadeIn 2s 10s forwards;
-}
-
-  .polaroid img {
-    width: 100%;
-    height: auto; /* Keeps aspect ratio */
-    object-fit: cover;
-  }
-
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Single column layout on phones */
-    gap: 1rem; /* Optional: space between items */
-  }
-
-  .close-gallery {
-    position: absolute; /* Ensure it's positioned correctly */
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    z-index: 1001; /* Ensure it stays above other elements */
-  }
-
-}
-
-
 
 
 .night {
